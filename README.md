@@ -1,15 +1,15 @@
-## bash script to catch emails sent from PHP
+## Catch all emails sent from PHP
 
 ### the problem 
 
-during development, I don't want my PHP app to send emails to the outside world
-however I'd like to see what emails would be sent, and what they'd look like
+During development, I don't want my PHP app to send emails to the outside world,
+but it'd still be useful to be able to see the various emails being generated.
 
-There are other ways, for example installing disabling PH@s mail() function or
-installing sendmail and then having a demon listening on port 25.
+There are various ways, for example installing disabling PHP's mail() function, or
+installing sendmail and then having a demon listening on port 25, or using dedicated software.
 However they're all kind of complicated with varying degrees of side effects.
 
-Much easier to simply configure PHP to talk to something that pretends to be sendmail!
+Much easier to simply configure PHP to talk to something that only pretends to send mail!
 
 ### install 
 ```bash
@@ -29,5 +29,6 @@ sendmail_path = /opt/dummy-smtp/sendmail.sh
 
 ### usage
 
-invoking PHP's mail() function will create a new file located in /opt/dummy-smtp/mail/new
+Invoking PHP's mail() function will write the raw mail content to a uniquely named
+file in /opt/dummy-smtp/mail/new ready for your perusal.
 
