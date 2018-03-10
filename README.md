@@ -3,20 +3,23 @@
 ### the problem 
 
 During development, I don't want my PHP app to send emails to the outside world,
-but it'd still be useful to be able to see the various emails being generated.
+but it'd still be useful to be able to collect & read the ougoing emails.
 
-There are various ways, for example installing disabling PHP's mail() function, or
-installing sendmail and then having a demon listening on port 25, or using dedicated software.
+There are various ways, for example disabling PHP's mail() function, or
+installing sendmail with a demon listening on port 25, or insatlling software like Papercut.
 However they're all kind of complicated with varying degrees of side effects.
 
 Much easier to simply configure PHP to talk to something that only pretends to send mail!
 
 ### install 
 ```bash
-mkdir -p /opt/dummy-smtp/mail/new
-cp [download_dir]/sendmail.sh /opt/dummy-smtp/
-chmod u+x g+x /opt/dummy-smtp/sendmail.sh
-chmod -R a+rw /opt/dummy-smtp/mail
+sudo mkdir -p /opt/dummy-smtp/mail/new
+sudo chown -R [your user name]:users /opt/dummy-smtp
+cd /opt/dummy-smtp/
+wget https://raw.githubusercontent.com/stefan-dhi/dummy_mail/master/sendmail.sh
+chown [your user name]:users ./sendmail.sh
+chmod ug+x ./sendmail.sh
+chmod -R a+rw ./mail
 ```
 
 ### edit php.ini
@@ -30,5 +33,5 @@ sendmail_path = /opt/dummy-smtp/sendmail.sh
 ### usage
 
 Invoking PHP's mail() function will write the raw mail content to a uniquely named
-file in /opt/dummy-smtp/mail/new ready for your perusal.
+file in ```/opt/dummy-smtp/mail/new``` ready for your perusal.
 
